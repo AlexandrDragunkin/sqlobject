@@ -9,11 +9,7 @@ addons:
   apt:
     packages:
       - python-egenix-mxdatetime
-      - python-mysqldb
-      - python-psycopg2
-      - python3-psycopg2
       - firebird2.5-super
-  postgresql: "9.4"
 
 before_install:
   # Start the firebird database server.
@@ -33,40 +29,6 @@ before_install:
     fi
 
 env:
-  - TOXENV=py26-mysqldb
-  - TOXENV=py27-mysqldb
-  - TOXENV=py34-mysqlclient
-  - TOXENV=py35-mysqlclient
-  - TOXENV=py26-mysql-connector
-  - TOXENV=py27-mysql-connector
-  - TOXENV=py34-mysql-connector
-  - TOXENV=py35-mysql-connector
-  - TOXENV=py26-mysql-oursql
-  - TOXENV=py27-mysql-oursql
-  - TOXENV=py26-pymysql
-  - TOXENV=py27-pymysql
-  - TOXENV=py34-pymysql
-  - TOXENV=py35-pymysql
-  - TOXENV=py26-postgres-psycopg
-  - TOXENV=py27-postgres-psycopg
-  - TOXENV=py34-postgres-psycopg
-  - TOXENV=py35-postgres-psycopg
-  - TOXENV=py26-postgres-pygresql
-  - TOXENV=py27-postgres-pygresql
-  - TOXENV=py34-postgres-pygresql
-  - TOXENV=py35-postgres-pygresql
-  - TOXENV=py34-pypostgresql
-  - TOXENV=py35-pypostgresql
-  - TOXENV=py26-sqlite
-  - TOXENV=py27-sqlite
-  - TOXENV=py34-sqlite
-  - TOXENV=py35-sqlite
-  - TOXENV=py26-sqlite-memory
-  - TOXENV=py27-sqlite-memory
-  - TOXENV=py34-sqlite-memory
-  - TOXENV=py35-sqlite-memory
-  - TOXENV=py27-flake8
-  - TOXENV=py34-flake8
   - TOXENV=py27-firebird-fdb
   - TOXENV=py34-firebird-fdb
   - TOXENV=py35-firebird-fdb
@@ -74,16 +36,10 @@ env:
   - TOXENV=py34-firebirdsql
   - TOXENV=py35-firebirdsql
 
-install: pip install tox coveralls codecov
+install: pip install tox
 
 matrix:
   allow_failures:
-    - env: TOXENV=py26-postgres-pygresql
-    - env: TOXENV=py27-postgres-pygresql
-    - env: TOXENV=py34-postgres-pygresql
-    - env: TOXENV=py35-postgres-pygresql
-    - env: TOXENV=py34-pypostgresql
-    - env: TOXENV=py35-pypostgresql
     - env: TOXENV=py27-firebird-fdb
     - env: TOXENV=py34-firebird-fdb
     - env: TOXENV=py35-firebird-fdb
@@ -93,8 +49,3 @@ matrix:
   fast_finish: true
 
 script: tox -e ${TOXENV}
-
-after_success:
-    - cd sqlobject
-    - coveralls
-    - codecov
